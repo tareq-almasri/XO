@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -14,44 +14,82 @@ function App() {
   const [cell9, setCell9] = useState("");
   const [style, setStyle] = useState({ display: "none" });
   const [msg, setMsg] = useState("");
+
   const winningCombo = [
-    [cell1, cell2, cell3],
-    [cell4, cell5, cell6],
-    [cell7, cell8, cell9],
-    [cell1, cell4, cell7],
-    [cell2, cell5, cell8],
-    [cell3, cell6, cell9],
-    [cell1, cell5, cell9],
-    [cell3, cell5, cell7],
+    [
+      [cell2, cell3],
+      [cell4, cell7],
+      [cell5, cell9],
+    ],
+    [
+      [cell1, cell3],
+      [cell5, cell8],
+    ],
+    [
+      [cell1, cell2],
+      [cell6, cell9],
+      [cell5, cell7],
+    ],
+    [
+      [cell5, cell6],
+      [cell1, cell7],
+    ],
+    [
+      [cell4, cell6],
+      [cell2, cell8],
+      [cell1, cell9],
+      [cell3, cell7],
+    ],
+    [
+      [cell3, cell9],
+      [cell4, cell5],
+    ],
+    [
+      [cell1, cell4],
+      [cell8, cell9],
+      [cell5, cell3],
+    ],
+    [
+      [cell7, cell9],
+      [cell2, cell5],
+    ],
+    [
+      [cell1, cell5],
+      [cell3, cell6],
+      [cell7, cell8],
+    ],
   ];
-  const checkWin = () => {
+
+  const checkWin = (num) => {
     if (
-      winningCombo.some((combo) => combo.every((cell) => cell.includes(turn)))
+      winningCombo[num].some((combo) =>
+        combo.every((cell) => cell.includes(turn))
+      )
     ) {
       setMsg(turn + " wins!");
-      setStyle({ display: "flex" });
+      setStyle({
+        display: "flex",
+      });
     }
   };
 
   const handleClick = () => {
-    checkWin();
     if (turn === "o") {
       setTurn("x");
     } else {
       setTurn("o");
     }
-    checkWin();
   };
-  
+
   return (
     <div>
-    
       <div className={"grid " + turn}>
         <div
           className={"cell " + cell1}
           onClick={() => {
             if (!cell1) {
               setCell1(turn);
+              checkWin(0);
               handleClick();
             }
           }}
@@ -61,6 +99,7 @@ function App() {
           onClick={() => {
             if (!cell2) {
               setCell2(turn);
+              checkWin(1);
               handleClick();
             }
           }}
@@ -70,6 +109,7 @@ function App() {
           onClick={() => {
             if (!cell3) {
               setCell3(turn);
+              checkWin(2);
               handleClick();
             }
           }}
@@ -79,6 +119,7 @@ function App() {
           onClick={() => {
             if (!cell4) {
               setCell4(turn);
+              checkWin(3);
               handleClick();
             }
           }}
@@ -88,6 +129,7 @@ function App() {
           onClick={() => {
             if (!cell5) {
               setCell5(turn);
+              checkWin(4);
               handleClick();
             }
           }}
@@ -97,6 +139,7 @@ function App() {
           onClick={() => {
             if (!cell6) {
               setCell6(turn);
+              checkWin(5);
               handleClick();
             }
           }}
@@ -106,6 +149,7 @@ function App() {
           onClick={() => {
             if (!cell7) {
               setCell7(turn);
+              checkWin(6);
               handleClick();
             }
           }}
@@ -115,6 +159,7 @@ function App() {
           onClick={() => {
             if (!cell8) {
               setCell8(turn);
+              checkWin(7);
               handleClick();
             }
           }}
@@ -124,6 +169,7 @@ function App() {
           onClick={() => {
             if (!cell9) {
               setCell9(turn);
+              checkWin(8);
               handleClick();
             }
           }}
