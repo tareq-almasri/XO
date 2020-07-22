@@ -70,6 +70,11 @@ function App() {
       setStyle({
         display: "flex",
       });
+    }else if((cell1+cell2+cell3+cell4+cell5+cell6+cell7+cell8+cell9).length===8){
+      setMsg("It's a draw!");
+      setStyle({
+        display: "flex",
+      });
     }
   };
 
