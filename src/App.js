@@ -81,6 +81,10 @@ function App() {
     }
   };
 
+  const restart=()=>{
+    window.location.reload(false);
+  }
+
   return (
     <div>
       <div className={"grid " + turn}>
@@ -177,7 +181,7 @@ function App() {
       </div>
       <div className="winning-msg" style={style}>
         <div> {msg} </div>
-        <button className="restart">Restart</button>
+        <button className="restart" onClick={restart}>Restart</button>
       </div>
     </div>
   );
