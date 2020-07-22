@@ -1,92 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Pvp() {
   const [turn, setTurn] = useState("x");
-  const [cell1, setCell1] = useState("");
-  const [cell2, setCell2] = useState("");
-  const [cell3, setCell3] = useState("");
-  const [cell4, setCell4] = useState("");
-  const [cell5, setCell5] = useState("");
-  const [cell6, setCell6] = useState("");
-  const [cell7, setCell7] = useState("");
-  const [cell8, setCell8] = useState("");
-  const [cell9, setCell9] = useState("");
+  const [grid, setGrid] = useState({
+    cell1: "",
+    cell2: "",
+    cell3: "",
+    cell4: "",
+    cell5: "",
+    cell6: "",
+    cell7: "",
+    cell8: "",
+    cell9: "",
+  });
   const [style, setStyle] = useState({ display: "none" });
   const [msg, setMsg] = useState("");
 
   const winningCombo = [
-    [
-      [cell2, cell3],
-      [cell4, cell7],
-      [cell5, cell9],
-    ],
-    [
-      [cell1, cell3],
-      [cell5, cell8],
-    ],
-    [
-      [cell1, cell2],
-      [cell6, cell9],
-      [cell5, cell7],
-    ],
-    [
-      [cell5, cell6],
-      [cell1, cell7],
-    ],
-    [
-      [cell4, cell6],
-      [cell2, cell8],
-      [cell1, cell9],
-      [cell3, cell7],
-    ],
-    [
-      [cell3, cell9],
-      [cell4, cell5],
-    ],
-    [
-      [cell1, cell4],
-      [cell8, cell9],
-      [cell5, cell3],
-    ],
-    [
-      [cell7, cell9],
-      [cell2, cell5],
-    ],
-    [
-      [cell1, cell5],
-      [cell3, cell6],
-      [cell7, cell8],
-    ],
+    [grid.cell1, grid.cell2, grid.cell3],
+    [grid.cell4, grid.cell5, grid.cell6],
+    [grid.cell7, grid.cell8, grid.cell9],
+    [grid.cell1, grid.cell4, grid.cell7],
+    [grid.cell2, grid.cell5, grid.cell8],
+    [grid.cell3, grid.cell6, grid.cell9],
+    [grid.cell1, grid.cell5, grid.cell9],
+    [grid.cell3, grid.cell5, grid.cell7],
   ];
 
-  const checkWin = (num) => {
-    if (
-      winningCombo[num].some((combo) =>
-        combo.every((cell) => cell.includes(turn))
-      )
-    ) {
-      setMsg(turn + " wins!");
+  const handleClick = (cell) => {
+    if (!grid[cell]) {
+      setGrid({ ...grid, [cell]: turn });
+
+      if (turn === "o") {
+        setTurn("x");
+      } else {
+        setTurn("o");
+      }
+    }
+  };
+
+  useEffect(() => {
+    let a;
+    switch (turn) {
+      case "x":
+        a = "o";
+        break;
+      case "o":
+        a = "x";
+    }
+    if (winningCombo.some((combo) => combo.every((cell) => cell.includes(a)))) {
+      setMsg(a + " wins!");
+
       setStyle({
         display: "flex",
       });
     } else if (
-      (cell1 + cell2 + cell3 + cell4 + cell5 + cell6 + cell7 + cell8 + cell9)
-        .length === 8
+      Object.values(grid).every((value) => value === "x" || value === "o")
     ) {
       setMsg("It's a draw!");
       setStyle({
         display: "flex",
       });
     }
-  };
-
-  const handleClick = () => {
-    if (turn === "o") {
-      setTurn("x");
-    } else {
-      setTurn("o");
-    }
-  };
+  }, [grid]);
 
   const restart = () => {
     window.location.reload(false);
@@ -96,93 +72,57 @@ function Pvp() {
     <div>
       <div className={"grid " + turn}>
         <div
-          className={"cell " + cell1}
+          className={"cell " + grid.cell1}
           onClick={() => {
-            if (!cell1) {
-              setCell1(turn);
-              checkWin(0);
-              handleClick();
-            }
+            handleClick("cell1");
           }}
         ></div>
         <div
-          className={"cell " + cell2}
+          className={"cell " + grid.cell2}
           onClick={() => {
-            if (!cell2) {
-              setCell2(turn);
-              checkWin(1);
-              handleClick();
-            }
+            handleClick("cell2");
           }}
         ></div>
         <div
-          className={"cell " + cell3}
+          className={"cell " + grid.cell3}
           onClick={() => {
-            if (!cell3) {
-              setCell3(turn);
-              checkWin(2);
-              handleClick();
-            }
+            handleClick("cell3");
           }}
         ></div>
         <div
-          className={"cell " + cell4}
+          className={"cell " + grid.cell4}
           onClick={() => {
-            if (!cell4) {
-              setCell4(turn);
-              checkWin(3);
-              handleClick();
-            }
+            handleClick("cell4");
           }}
         ></div>
         <div
-          className={"cell " + cell5}
+          className={"cell " + grid.cell5}
           onClick={() => {
-            if (!cell5) {
-              setCell5(turn);
-              checkWin(4);
-              handleClick();
-            }
+            handleClick("cell5");
           }}
         ></div>
         <div
-          className={"cell " + cell6}
+          className={"cell " + grid.cell6}
           onClick={() => {
-            if (!cell6) {
-              setCell6(turn);
-              checkWin(5);
-              handleClick();
-            }
+            handleClick("cell6");
           }}
         ></div>
         <div
-          className={"cell " + cell7}
+          className={"cell " + grid.cell7}
           onClick={() => {
-            if (!cell7) {
-              setCell7(turn);
-              checkWin(6);
-              handleClick();
-            }
+            handleClick("cell7");
           }}
         ></div>
         <div
-          className={"cell " + cell8}
+          className={"cell " + grid.cell8}
           onClick={() => {
-            if (!cell8) {
-              setCell8(turn);
-              checkWin(7);
-              handleClick();
-            }
+            handleClick("cell8");
           }}
         ></div>
         <div
-          className={"cell " + cell9}
+          className={"cell " + grid.cell9}
           onClick={() => {
-            if (!cell9) {
-              setCell9(turn);
-              checkWin(8);
-              handleClick();
-            }
+            handleClick("cell9");
           }}
         ></div>
       </div>
