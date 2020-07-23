@@ -92,11 +92,17 @@ export default function Solo() {
         display: "flex",
       });
     } else if (appTurn) {
-      potentialWin = winningCombo.find((combo) =>
-        [appMark + appMark, playerMark + playerMark].includes(
-          grid[combo[0]] + grid[combo[1]] + grid[combo[2]]
-        )
+      potentialWin = winningCombo.find(
+        (combo) =>
+          grid[combo[0]] + grid[combo[1]] + grid[combo[2]] === appMark + appMark
       );
+      if (!potentialWin){
+          potentialWin = winningCombo.find(
+            (combo) =>
+              grid[combo[0]] + grid[combo[1]] + grid[combo[2]] ===
+              playerMark + playerMark
+          );
+      }
       if (potentialWin) {
         nextCell = potentialWin.find((c) => !grid[c]);
       }
