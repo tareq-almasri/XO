@@ -96,12 +96,12 @@ export default function Solo() {
         (combo) =>
           grid[combo[0]] + grid[combo[1]] + grid[combo[2]] === appMark + appMark
       );
-      if (!potentialWin){
-          potentialWin = winningCombo.find(
-            (combo) =>
-              grid[combo[0]] + grid[combo[1]] + grid[combo[2]] ===
-              playerMark + playerMark
-          );
+      if (!potentialWin) {
+        potentialWin = winningCombo.find(
+          (combo) =>
+            grid[combo[0]] + grid[combo[1]] + grid[combo[2]] ===
+            playerMark + playerMark
+        );
       }
       if (potentialWin) {
         nextCell = potentialWin.find((c) => !grid[c]);
@@ -117,8 +117,8 @@ export default function Solo() {
         "cell8",
         "cell4",
       ];
-      if (totalAppMarks === 0 && totalPlayerMarks === 1) {
-        steps.unshift("cell5");
+      if (play1st && ['','o'].includes(grid.cell5)) {
+        steps = ["cell5", "cell2", "cell6", "cell8", "cell4"].concat(steps);
       }
       nextCell2 = steps.find((c) => !grid[c]);
 
