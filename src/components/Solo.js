@@ -108,8 +108,8 @@ export default function Solo() {
       }
       steps = [
         "cell1",
-        "cell3",
         "cell9",
+        "cell3",
         "cell7",
         "cell5",
         "cell2",
