@@ -1,6 +1,6 @@
 ## the famous XO game
 
-
+made with react.
 includes PvP and solo modes
 
 
